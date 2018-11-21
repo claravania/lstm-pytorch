@@ -68,7 +68,7 @@ def train_model(model, optimizer, train, dev, x_to_ix, y_to_ix, batch_size, max_
             total_loss += loss
         acc = accuracy_score(y_true, y_pred)
         val_loss, val_acc = evaluate_validation_set(model, dev, x_to_ix, y_to_ix, criterion)
-        print("Train loss: {} - acc: {} \nValidation loss: {} - acc: {}".format(list(total_loss.data.float())[0]/len(train), acc,
+        print("Train loss: {} - acc: {} \nValidation loss: {} - acc: {}".format(total_loss.data.float()/len(train), acc,
                                                                                 val_loss, val_acc))
     return model
 
@@ -85,7 +85,7 @@ def evaluate_validation_set(model, devset, x_to_ix, y_to_ix, criterion):
         y_pred += list(pred_idx.data.int())
         total_loss += loss
     acc = accuracy_score(y_true, y_pred)
-    return list(total_loss.data.float())[0]/len(devset), acc
+    return total_loss.data.float()/len(devset), acc
 
 
 def evaluate_test_set(model, test, x_to_ix, y_to_ix):
